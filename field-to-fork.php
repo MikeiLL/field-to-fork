@@ -35,8 +35,8 @@ if(function_exists("register_field_group"))
 				'name' => 'start_of_season',
 				'type' => 'date_picker',
 				'instructions' => 'Select the date around which this produce is likely to become available.',
-				'date_format' => 'yymmdd',
-				'display_format' => 'dd/mm/yy',
+				'date_format' => 'yy-mm-dd',
+				'display_format' => 'mm/dd/yy',
 				'first_day' => 1,
 			),
 			array (
@@ -45,8 +45,8 @@ if(function_exists("register_field_group"))
 				'name' => 'end_of_season',
 				'type' => 'date_picker',
 				'instructions' => 'Select the date around which this produce is likely to be out of season.',
-				'date_format' => 'yymmdd',
-				'display_format' => 'dd/mm/yy',
+				'date_format' => 'yy-mm-dd',
+				'display_format' => 'mm/dd/yy',
 				'first_day' => 1,
 			),
 			array (
@@ -82,46 +82,6 @@ if(function_exists("register_field_group"))
 }
 
 
-/*
-function set_available_acfs()
-	{
-	
-		$metabox_ids     = array();
-		$available_acfs  = array();
-		$acf_groups 		= $available_acfs;
-
-        // Get ACF field groups
-		$acfs = apply_filters("acf/get_field_groups", array());
-		mz_pr($acfs);
-
-		if($acfs)
-		{
-			foreach($acfs as $acf)
-			{
-                // Get ACF options
-				$acf["options"] = apply_filters("acf/field_group/get_options", array(), $acf["id"]);
-
-                // Need to show this ACF field group?
-				$show = in_array($acf["id"], $metabox_ids) ? 1 : 0;
-
-				if(!$show)
-				{
-					continue;
-				}
-
-				if(!isset($available_acfs[$acf["id"]]))
-				{
-					$available_acfs[$acf["id"]] = array(
-						"id"    => $acf["id"],
-						"title" => $acf["title"]
-						);
-				}
-			}
-		}
-		mz_pr($available_acfs);
-	}
-*/
-
 function add_shortcodes() {
  	
  		//$produce_display = new MZ_Mindbody_Schedule_Display();
@@ -131,6 +91,7 @@ function add_shortcodes() {
 }
 
 require_once('lib/produce.php');
+require_once('lib/season.php');
 add_shortcodes();
 
 if ( ! function_exists( 'mz_pr' ) ) {
