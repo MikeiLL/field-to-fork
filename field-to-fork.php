@@ -1,9 +1,24 @@
 <?php
-/*
-Plugin Name: Field to Fork Farm Produce Display
-Description: Field to Fork Farm Produce Display by Season
-Author: Mike iLL 
-Author URI: http://www.mZoo.org
+/**
+ * This file contains main plugin class and, defines and plugin loader.
+ *
+ * The Field to Fork Farm Produce Display plugin provides a custom post type for
+ * "Produce" with some custom fields to set it's season, and displays the produce
+ * when it is in season.
+ *
+ * @package MZF2F
+ *
+ * @wordpress-plugin
+ * Plugin Name: 	Field to Fork Farm Produce Display
+ * Description: 	Create and display produce items based on current season
+ * Version: 		1.0.0
+ * Author: 			mZoo.org
+ * Author URI: 		http://www.mZoo.org/
+ * Plugin URI: 		http://www.mzoo.org/mz-mindbody-wp
+ * License:         GPL-2.0+
+ * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: 	mz-field-to-fork
+ * Domain Path: 	/languages
 */
 
 add_action( 'init', 'farm_produce_cpt' );
