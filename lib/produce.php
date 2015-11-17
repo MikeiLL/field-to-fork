@@ -4,12 +4,12 @@ function field_to_fork_produce_display( $atts ) {
 
   $atts = shortcode_atts( array(
   'title' => 'Produce',
-  'ignore_year' => 0,
+  'consider_year' => 0,
   'exclude_season' => 0
     ), $atts );
 
   $title = $atts['title']; 
-  $ignore_year = $atts['ignore_year']; 
+  $consider_year = $atts['consider_year']; 
   $exclude_season = $atts['exclude_season'];
   
   if ($exclude_season == 0):
@@ -56,7 +56,7 @@ function field_to_fork_produce_display( $atts ) {
       $end_of_season = get_field('end_of_season', $post->ID);
       $in_season = 0;
       
-      if ($ignore_year == 1):
+      if ($consider_year == 0):
           $date_format = 'm-d';
           $season = new Season();
           $season_start = explode('-', date_i18n($date_format,strtotime($start_of_season)));
