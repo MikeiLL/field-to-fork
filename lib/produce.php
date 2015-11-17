@@ -11,12 +11,6 @@ function field_to_fork_produce_display( $atts ) {
   $title = $atts['title']; 
   $ignore_year = $atts['ignore_year']; 
   $exclude_season = $atts['exclude_season'];
-
-  /*
-  $plugins_dir = plugin_dir_path( __file__ );
-  $plugins_dir = str_replace("/field-to-fork/lib/", "", $plugins_dir);
-  include_once($plugins_dir.'/advanced-custom-fields/acf.php');	
-  */	
   
   if ($exclude_season == 0):
   //get current month
@@ -60,23 +54,28 @@ function field_to_fork_produce_display( $atts ) {
     
       $start_of_season = get_field('start_of_season', $post->ID);
       $end_of_season = get_field('end_of_season', $post->ID);
+      $in_season = 0;
       
       if ($ignore_year == 1):
           $date_format = 'm-d';
-        if (date_i18n($date_format,strtotime($start_of_season)) > date_i18n($date_format,strtotime($end_of_season))):
-          if (date_i18n($date_format,strtotime('today')) > date_i18n($date_format,strtotime('2000-06-01'))):
-            $end_of_season = '2000-12-31';
-          else:
-            $start_of_season = '2000-01-01';
-          endif;
-      endif;
+          $season = new Season();
+          $season_start = explode('-', date_i18n($date_format,strtotime($start_of_season)));
+          $season_end = explode('-', date_i18n($date_format,strtotime($end_of_season)));
+          $season->setStart($season_start[0], $season_start[1]);
+          $season->setEnd($season_end[0], $season_end[1]);
+          if (0 == $season->isActiveForDate(new DateTime('NOW')))
+            continue;
+          $in_season = 1;
+
       else:
           $date_format = 'Y-m-d';
+          if ((date_i18n($date_format,strtotime('today')) > date_i18n($date_format,strtotime($start_of_season))) &&
+        (date_i18n($date_format,strtotime('today')) < date_i18n($date_format,strtotime($end_of_season))))
+              $in_season = 1;
       endif;
       
 
-      if ((date_i18n($date_format,strtotime('today')) > date_i18n($date_format,strtotime($start_of_season))) &&
-        (date_i18n($date_format,strtotime('today')) < date_i18n($date_format,strtotime($end_of_season)))):
+      if ($in_season == 1):
 
     ?>
     
@@ -88,18 +87,14 @@ function field_to_fork_produce_display( $atts ) {
             
     $result	.=		'</a>';
 
-
-    $result	.=		'<h4><a class="produce_item_title" href="<?php the_permalink(); ?>">' . get_the_title($post->ID) . '</a></h4>';
+    $result	.=		'<h4><a class="produce_item_title" href="' . get_the_permalink($post->ID) . '">' . get_the_title($post->ID) . '</a></h4>';
 
     $result	.=		'<p class="produce_item_excerpt">' . get_the_excerpt() . '</p>';
-
 
       $produce_thumbnail = get_field('produce_image', $post->ID)['sizes']['thumbnail'];
       if(isset($produce_thumbnail)) {
           $result	.=		'<img src="'.$produce_thumbnail.'" class="img-responsive field_to_fork_thumb '.str_replace(' ', '_', get_the_title($post->ID)).'">';
         }
-
-
 
       $result	.=		'</a>';
       
@@ -109,8 +104,8 @@ function field_to_fork_produce_display( $atts ) {
 
       wp_reset_postdata(); 
       
-
     endif; // ./if posts
   $result	.=		'</div><!-- end span 6-->';
+
   return $result;
   } ?>

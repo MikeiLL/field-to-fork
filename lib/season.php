@@ -1,6 +1,8 @@
 <?php
 
-date_default_timezone_set('America/New_York');
+# based on http://stackoverflow.com/questions/33686093/between-late-month-and-early-month-without-regards-to-specific-year/33686411#33686411
+
+current_time( 'timestamp' );
 
 class Season {
 
