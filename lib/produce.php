@@ -5,12 +5,16 @@ function field_to_fork_produce_display( $atts ) {
   $atts = shortcode_atts( array(
   'title' => 'Produce',
   'consider_year' => 0,
-  'exclude_season' => 0
+  'exclude_season' => 0,
+  'image_size' => 'thumbnail',
+  'description_mode' => 'excerpt'
     ), $atts );
 
   $title = $atts['title']; 
   $consider_year = $atts['consider_year']; 
-  $exclude_season = $atts['exclude_season'];
+  $exclude_season = $atts['exclude_season']; // Using this?
+  $image_size = $atts['image_size'];
+  $description_mode = $atts['description_mode'];
   
   if ($exclude_season == 0):
   //get current month
@@ -79,30 +83,33 @@ function field_to_fork_produce_display( $atts ) {
 
     ?>
     
-    <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it. 
+    <?php /*if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it. 
     $result	.=		'<a href="<?php the_permalink(); ?>">';
-
                   the_post_thumbnail('thumb', array( 'class'	=> "img-responsive img-center"));
-                }  
+                }  */
             
     $result	.=		'</a>';
 
-    $result	.=		'<h4><a class="produce_item_title" href="' . get_the_permalink($post->ID) . '">' . get_the_title($post->ID) . '</a></h4>';
+    $result	.=		'<h4 class="produce_item_header"><a class="produce_item_title" href="' . get_the_permalink($post->ID) . '">' . get_the_title($post->ID) . '</a></h4>';
 
-    $result	.=		'<p class="produce_item_excerpt">' . get_the_excerpt() . '</p>';
+    $result	.=		'<p class="produce_item_excerpt">' ;
 
-      $produce_thumbnail = get_field('produce_image', $post->ID)['sizes']['thumbnail'];
-      if(isset($produce_thumbnail)) {
-          $result	.=		'<img src="'.$produce_thumbnail.'" class="img-responsive field_to_fork_thumb '.str_replace(' ', '_', get_the_title($post->ID)).'">';
-        }
+    $produce_image = get_field('produce_image', $post->ID)['sizes'][$image_size];
+    if(isset($produce_image)) {
+        $result	.=		'<img src="'.$produce_image.'" class="img-responsive field_to_fork_thumb '.str_replace(' ', '_', get_the_title($post->ID)).'">';
+      }
 
-      $result	.=		'</a>';
-      
-      endif; //  ./if between dates (in season)
+    if ($description_mode == 'excerpt'):
+      $result	.=		get_the_excerpt() .'</a></p>';
+    else:
+      $result	.=		get_the_content() . '</a></p>';
+    endif;
+    
+    endif; //  ./if between dates (in season)
 
-      endforeach; 
+    endforeach; 
 
-      wp_reset_postdata(); 
+    wp_reset_postdata(); 
       
     endif; // ./if posts
   $result	.=		'</div><!-- end span 6-->';
