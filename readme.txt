@@ -15,10 +15,15 @@ The Field to Fork Farm Produce Display plugin provides a custom post type for "P
 
 The Field to Fork Farm Produce Display plugin provides a custom post type for "Produce" with some custom fields to set it's season, and displays the produce when it is in season.
 
+This plugin requires Advance Custom Fields.
+
 == Installation ==
 
-Upload to your plugins directory or install via wordpress admin panel. There is now a new post type called "Produce"
-which can be created, containing start and end dates for season.
+1. Install the Advance Custom Fields plugin.
+2. Activate the Advance Custom Fields plugin.
+3. Upload to your plugins directory or install via wordpress admin panel. 
+4. Activate the Field to Fork plugin.
+5. There is now a new post type called "Produce" which can be created, containing start and end dates for season.
 
 Display produce using the shortcode: [field-to-fork-produce-display] 
 
