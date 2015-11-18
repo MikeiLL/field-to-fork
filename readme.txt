@@ -30,10 +30,8 @@ You can also add a title attribute: title="Great Produce Here"
 
 == Screenshots ==
 
-1. Calendar Display
-2. Details Modal
-3. Teacher Bio Page
-4. Admin Page
+1. Produce Display
+2. Create Produce Item
 
 == Changelog ==
 
