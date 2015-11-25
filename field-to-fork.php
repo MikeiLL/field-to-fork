@@ -11,10 +11,10 @@
  * @wordpress-plugin
  * Plugin Name: 	Field to Fork Farm Produce Display
  * Description: 	Create and display produce items based on current season
- * Version: 		1.0.0
+ * Version: 		1.1.0
  * Author: 			mZoo.org
  * Author URI: 		http://www.mZoo.org/
- * Plugin URI: 		http://www.mzoo.org/mz-mindbody-wp
+ * Plugin URI: 		http://www.mzoo.org/
  * License:         GPL-2.0+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: 	mz-field-to-fork
